@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class MainMenuButtons : MonoBehaviour
 {
+    LevelManager levelManager;
     [SerializeField] GameObject settingUi;
     [SerializeField] GameObject highscoreUý;
     [SerializeField] GameObject mainMenuUi;
@@ -13,6 +14,10 @@ public class MainMenuButtons : MonoBehaviour
     [SerializeField] Toggle toggle;
     [SerializeField] Button button;
     public bool playMusic = true;
+    void Start()
+    {
+        levelManager=FindObjectOfType<LevelManager>();
+    }
     public void Exýt ()
     {
         Application.Quit ();
@@ -53,6 +58,9 @@ public class MainMenuButtons : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-    
+    public void ReturnGame()
+    {
+        levelManager.tryExit = false;
+    }
 
 }

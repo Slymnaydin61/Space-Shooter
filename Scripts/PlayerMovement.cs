@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         OnMove();
         OnFire();
         SetFireCooldown();
-        LimitXPosition();
+        LimitTransform();
     }
     void OnMove()
     {
@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
             fireCooldown = 0.5f;
         }
     }
-    void LimitXPosition()
+    void LimitTransform()
     {
        xPosition = Mathf.Clamp(transform.position.x,xPositionMin , xPositionMax);
         transform.position=new Vector3(xPosition,transform.position.y,transform.position.z);

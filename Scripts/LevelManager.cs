@@ -17,8 +17,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject skillCanvas;
     [SerializeField] GameObject exitMenuCanvas;
     public bool pauseGame=false;
-    bool isLeveledUp,tryExit;
-    
+    bool isLeveledUp;
+    public bool tryExit;
 
     void Start()
     {
@@ -33,11 +33,12 @@ public class LevelManager : MonoBehaviour
         levelText.text = "LEVEL:" + level;
         skilpointText.text = "Skill Point:" +""+ skillPoint;
         IncreaseLevel();
-        CloseCanvas();
         LevelCheat();
         PlayMusic();
         OpenCanvas();
+        SetBools();
         OpenExitMenu();
+        Debug.Log(tryExit);
     }
     void IncreaseLevel()
     { 
@@ -58,16 +59,7 @@ public class LevelManager : MonoBehaviour
             isLeveledUp=true ;
         }
     }
-    public void CloseCanvas()
-    {
-        if(!isLeveledUp)
-        {
-            skillCanvas.SetActive(false);
-            spawner.gameObject.SetActive(true);
-            pauseGame = false;
-        }
-    
-    }
+
     void OpenCanvas()
     {
         if(isLeveledUp)
@@ -76,13 +68,26 @@ public class LevelManager : MonoBehaviour
             spawner.gameObject.SetActive(false);
             pauseGame = true;
         }
+        else
+        {
+            skillCanvas.SetActive(false);
+            spawner.gameObject.SetActive(true);
+            pauseGame = false;
+        }
     }
     void OpenExitMenu()
     {
         if(tryExit)
         {
-            pauseGame = true;
+            Debug.Log("Escde oyun durmuyor gerizekalý");
             exitMenuCanvas.SetActive(true);
+            pauseGame = true;
+            
+        }
+        else
+        {
+            Debug.Log("Escde oyun durmuyor gerizekalý2");
+            exitMenuCanvas.SetActive(false);
         }
        
     }
@@ -101,15 +106,13 @@ public class LevelManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Escape))
         {
-            isLeveledUp = false;
             tryExit = true;
-            if(tryExit&& Input.GetKey(KeyCode.Escape))
-            {
-                tryExit = false;
-            }
-
-
+            isLeveledUp = false;    
         }
+        //if(tryExit&& Input.GetKey(KeyCode.Escape))
+        //{
+        //    tryExit = false;
+        //}
     }
 
 }
